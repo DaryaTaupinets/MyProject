@@ -3,15 +3,32 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collection;
 
-public class DBManager {
+public final class DBHelper {
+
+    private static DBHelper instance;
+
+    private DBHelper() {
+    }
+
+    public static DBHelper getInstance() {
+        DBHelper result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized (DBHelper.class) {
+            if (instance == null) {
+                instance = new DBHelper();
+            }
+            return instance;
+        }
+    }
 
     private static final String URL = "jdbc:mysql://localhost:3306/userdatabase?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
-    protected static Connection getConnection() {
+    public static Connection getConnection() {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");

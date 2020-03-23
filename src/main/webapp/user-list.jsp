@@ -9,7 +9,7 @@
         <h1 class="text-center">User's list</h1>
         <hr>
         <div class="container text-left">
-            <a href="<%=request.getContextPath()%>/new" class="btn btn-primary">Add New User</a>
+            <a href="${pageContext.request.contextPath}/new" class="btn btn-primary">Add New User</a>
         </div>
         <br>
 

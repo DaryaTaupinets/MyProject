@@ -18,10 +18,9 @@
          style="background-color: dodgerblue">
         <div>
             <h1>My first CRUD Application</h1>
-            <h2><a href="<%=request.getContextPath()%>/list">
+            <h2><a href="${pageContext.request.contextPath}/list">
                 <button type="button" class="btn btn-secondary">User's list</button>
             </a></h2>
         </div>
-
     </nav>
 </header>
