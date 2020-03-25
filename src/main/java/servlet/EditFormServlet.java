@@ -1,8 +1,11 @@
 package servlet;
 
+
+import model.User;
 import service.Service;
 import service.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/insert")
-public class CreateServlet extends HttpServlet {
+@WebServlet("/edit")
+public class EditFormServlet extends HttpServlet {
 
     private static Service service = UserService.getInstance();
 
@@ -24,19 +27,18 @@ public class CreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            insertUser(req, resp);
+            showEditForm(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void insertUser(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException, IOException {
-        String name = req.getParameter("name");
-        byte age = Byte.parseByte(req.getParameter("age"));
-        String email = req.getParameter("email");
-        String location = req.getParameter("location");
-        service.insertUser(name, age, email, location);
-        resp.sendRedirect("list");
+    public void showEditForm(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException, SQLException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        User existingUser = service.showEditForm(id);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
+        req.setAttribute("user", existingUser);
+        dispatcher.forward(req, resp);
     }
 }

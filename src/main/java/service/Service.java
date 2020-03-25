@@ -1,24 +1,20 @@
 package service;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import model.User;
+
 import java.sql.SQLException;
+import java.util.List;
 
 public interface Service {
 
+    List<User> listUser() throws SQLException;
 
-    void  listUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
+    void updateUser(int id, String name, byte age, String email, String location) throws SQLException;
 
-    void updateUser(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException;
+    void deleteUser(int id) throws SQLException;
 
-    void deleteUser(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException;
+    User showEditForm(int id) throws SQLException;
 
-    void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
-
-    void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
-
-    void insertUser(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException;
+    void insertUser(String name, byte age, String email, String location) throws SQLException;
 
 }

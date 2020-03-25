@@ -10,7 +10,6 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void insertUser(User user) throws SQLException {
-
     }
 
     @Override
