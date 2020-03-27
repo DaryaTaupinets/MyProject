@@ -2,7 +2,8 @@ package servlet;
 
 import model.User;
 import service.Service;
-import service.UserService;
+import service.UserHibernateService;
+import service.UserJdbcService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +18,8 @@ import java.util.List;
 @WebServlet("/list")
 public class ReadServlet extends HttpServlet {
 
-    private static Service service = UserService.getInstance();
+    //private static Service service = UserJdbcService.getInstance();
+    private static Service service = UserHibernateService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

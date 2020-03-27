@@ -23,7 +23,7 @@ public class UserJdbcDAO implements UserDAO {
     private static final String UPDATE_USERS_SQL = "update users set name = ?, age = ?, email = ?, location = ? where id = ?";
 
     @Override
-    public void insertUser(User user) {
+    public void insertUser(User user) throws SQLException {
         log.info(INSERT_USERS_SQL);
         try (PreparedStatement preparedStatement = DBHelper.getConnection().prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getName());
@@ -31,13 +31,11 @@ public class UserJdbcDAO implements UserDAO {
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getLocation());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
-    public List<User> selectAllUsers() {
+    public List<User> selectAllUsers() throws SQLException {
         log.info(SELECT_ALL_USERS);
         List<User> users = new ArrayList<>();
         try (PreparedStatement preparedStatement = DBHelper.getConnection().prepareStatement(SELECT_ALL_USERS);
@@ -51,14 +49,12 @@ public class UserJdbcDAO implements UserDAO {
                 String location = resultSet.getString("location");
                 users.add(new User(id, name, age, email, location));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return users;
     }
 
     @Override
-    public User selectUser(int id) {
+    public User selectUser(int id) throws SQLException {
         log.info(SELECT_USER_BY_ID);
         User user = null;
         try (PreparedStatement preparedStatement = DBHelper.getConnection().prepareStatement(SELECT_USER_BY_ID)) {
@@ -73,10 +69,8 @@ public class UserJdbcDAO implements UserDAO {
                     user = new User(id, name, age, email, location);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return user;
         }
-        return user;
     }
 
 

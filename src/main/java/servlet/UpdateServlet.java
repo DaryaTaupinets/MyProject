@@ -1,7 +1,8 @@
 package servlet;
 
 import service.Service;
-import service.UserService;
+import service.UserHibernateService;
+import service.UserJdbcService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {
 
-    private static Service service = UserService.getInstance();
+    //private static Service service = UserJdbcService.getInstance();
+    private static Service service = UserHibernateService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
