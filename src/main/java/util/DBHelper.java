@@ -61,13 +61,13 @@ public class DBHelper {
 
                 configuration.addAnnotatedClass(User.class);
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-                configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+                configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
                 configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/userdatabase?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
                 configuration.setProperty("hibernate.connection.username", "root");
                 configuration.setProperty("hibernate.connection.password", "root");
                 configuration.setProperty("hibernate.show_sql", "true");
                 configuration.setProperty("hibernate.current_session_context_class", "thread");
-                configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+                configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

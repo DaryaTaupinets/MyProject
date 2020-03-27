@@ -3,8 +3,7 @@ package servlet;
 
 import model.User;
 import service.Service;
-import service.UserHibernateService;
-import service.UserJdbcService;
+import service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,8 +17,7 @@ import java.sql.SQLException;
 @WebServlet("/edit")
 public class EditFormServlet extends HttpServlet {
 
-    //private static Service service = UserJdbcService.getInstance();
-    private static Service service = UserHibernateService.getInstance();
+    private static Service service = UserService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
