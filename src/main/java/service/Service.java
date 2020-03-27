@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Service {
 
-    List<User> listUser() throws SQLException, IOException;
+    List<User> listUser() throws SQLException;
 
     void updateUser(int id, String name, byte age, String email, String location) throws SQLException;
 

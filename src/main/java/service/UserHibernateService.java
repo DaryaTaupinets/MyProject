@@ -33,7 +33,7 @@ public class UserHibernateService implements Service {
     }
 
     @Override
-    public List<User> listUser() throws SQLException, IOException {
+    public List<User> listUser() throws SQLException {
         return userHibernateDAO.selectAllUsers();
     }
 
