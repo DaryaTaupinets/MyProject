@@ -9,7 +9,7 @@
             <form action="update" method="post">
                 </c:if>
                 <c:if test="${user == null}">
-                <form action="insert" method="post">
+                <form action="create" method="post">
                     </c:if>
 
                     <caption>

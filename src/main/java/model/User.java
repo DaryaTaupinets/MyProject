@@ -12,13 +12,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "age")
-    private byte age;
+    private Byte age;
 
     @Column(name = "email")
     private String email;
@@ -29,7 +29,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(int id, String name, byte age, String email, String location) {
+    public User(Integer id, String name, Byte age, String email, String location) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -37,18 +37,18 @@ public class User implements Serializable {
         this.location = location;
     }
 
-    public User(String name, byte age, String email, String location) {
+    public User(String name, Byte age, String email, String location) {
         this.name = name;
         this.age = age;
         this.email = email;
         this.location = location;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,11 +60,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public byte getAge() {
+    public Byte getAge() {
         return age;
     }
 
-    public void setAge(byte age) {
+    public void setAge(Byte age) {
         this.age = age;
     }
 

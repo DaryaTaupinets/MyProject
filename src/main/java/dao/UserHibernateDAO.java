@@ -1,65 +1,68 @@
 package dao;
 
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import util.DBHelper;
 import model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import util.DBHelper;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class UserHibernateDAO implements UserDAO {
 
-    private static final Logger log = Logger.getLogger(UserHibernateDAO.class.getName());
+    SessionFactory sessionFactory = DBHelper.getSessionFactory();
 
     @Override
-    public void insertUser(User user) {
-        Session session = DBHelper.getConfiguration().openSession();
+    public void createUser(User user) {
+        Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
         transaction.commit();
+        session.close();
     }
 
     @Override
-    public User selectUser(int id) {
-        Session session = DBHelper.getConfiguration().openSession();
+    public User getUserById(Integer id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         User user = (User) session.get(User.class, id);
         transaction.commit();
+        session.close();
         return user;
     }
 
     @Override
-    public List<User> selectAllUsers() {
-        Session session = DBHelper.getConfiguration().openSession();
+    public List<User> getAllUsers() {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("from User").list();
         transaction.commit();
+        session.close();
         return users;
     }
 
     @Override
     public boolean updateUser(User user) {
-        Session session = DBHelper.getConfiguration().openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(user);
         transaction.commit();
+        session.close();
         return false;
     }
 
     @Override
-    public boolean deleteUserById(int id) {
-        Session session = DBHelper.getConfiguration().openSession();
+    public boolean deleteUserById(Integer id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         User user = (User) session.get(User.class, id);
-        if (user!=null){
+        if (user != null) {
             session.delete(user);
-            log.info("User is deleted");
         }
         transaction.commit();
+        session.close();
         return false;
     }
 }

@@ -9,7 +9,7 @@
         <h1 class="text-center">User's list</h1>
         <hr>
         <div class="container text-left">
-            <a href="${pageContext.request.contextPath}/new" class="btn btn-primary">Add New User</a>
+            <a href="${pageContext.request.contextPath}/create" class="btn btn-primary">Add New User</a>
         </div>
         <br>
 
@@ -33,7 +33,7 @@
                     <td><c:out value="${user.age}"/></td>
                     <td><c:out value="${user.email}"/></td>
                     <td><c:out value="${user.location}"/></td>
-                    <td><a href="edit?id=<c:out value='${user.id}' />">
+                    <td><a href="update?id=<c:out value='${user.id}' />">
                         <button type="button" class="btn btn-primary">Edit</button>
                     </a>
                         &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value='${user.id}' />">

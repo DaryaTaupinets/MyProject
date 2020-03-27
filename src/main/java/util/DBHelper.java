@@ -54,7 +54,7 @@ public class DBHelper {
 
     private static SessionFactory sessionFactory;
 
-    public static SessionFactory getConfiguration() {
+    public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
