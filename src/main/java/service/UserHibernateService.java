@@ -5,7 +5,6 @@ import dao.UserHibernateDAO;
 import dao.UserJdbcDAO;
 import model.User;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
