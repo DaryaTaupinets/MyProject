@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserHibernateDAO implements UserDAO {
 
-    SessionFactory sessionFactory = DBHelper.getSessionFactory();
+    private SessionFactory sessionFactory = DBHelper.getSessionFactory();
 
     @Override
     public void createUser(User user) {

@@ -28,7 +28,6 @@ public class ReadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> userList = userService.getListUser();
         req.setAttribute("userList", userList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("user-list.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher("user-list.jsp").forward(req, resp);
     }
 }

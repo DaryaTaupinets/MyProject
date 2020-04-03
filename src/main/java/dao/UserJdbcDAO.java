@@ -17,9 +17,9 @@ public class UserJdbcDAO implements UserDAO {
 
     private static final Logger log = Logger.getLogger(UserJdbcDAO.class.getName());
 
-    Connection connection = DBHelper.getConnection();
-    boolean deleted;
-    boolean updating;
+    private Connection connection = DBHelper.getConnection();
+    private boolean deleted;
+    private boolean updating;
 
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, age, email, location) VALUES (?, ?, ?, ?)";
     private static final String SELECT_USER_BY_ID = "select id, name, age, email, location from users where id =?";
