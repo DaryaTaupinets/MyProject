@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByName(String name) {
+        return userDAO.getUserByName(name);
+    }
+
+    @Override
     public void createUser(User user) {
         userDAO.createUser(user);
     }

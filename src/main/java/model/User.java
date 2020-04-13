@@ -26,6 +26,12 @@ public class User implements Serializable {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "role")
+    private String role;
+
     public User() {
     }
 
@@ -43,6 +49,26 @@ public class User implements Serializable {
         this.email = email;
         this.location = location;
     }
+
+    public User(String name, Byte age, String email, String location, String password, String role) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.location = location;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(Integer id, String name, Byte age, String email, String location, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.location = location;
+        this.password = password;
+        this.role = role;
+    }
+
 
     public Integer getId() {
         return id;
@@ -84,22 +110,20 @@ public class User implements Serializable {
         this.location = location;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                age == user.age &&
-                name.equals(user.name) &&
-                email.equals(user.email) &&
-                location.equals(user.location);
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, email, location);
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -110,6 +134,27 @@ public class User implements Serializable {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", location='" + location + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(age, user.age) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(location, user.location) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, email, location, password, role);
     }
 }

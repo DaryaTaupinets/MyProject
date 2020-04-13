@@ -1,6 +1,5 @@
 package servlet;
 
-
 import service.UserService;
 import service.UserServiceImpl;
 
@@ -24,6 +23,6 @@ public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         userService.deleteUser(id);
-        resp.sendRedirect("list");
+        resp.sendRedirect("admin");
     }
 }

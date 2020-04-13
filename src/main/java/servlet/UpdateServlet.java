@@ -24,8 +24,10 @@ public class UpdateServlet extends HttpServlet {
         Byte age = Byte.parseByte(req.getParameter("age"));
         String email = req.getParameter("email");
         String location = req.getParameter("location");
-        userService.updateUser(new User(id, name, age, email, location));
-        resp.sendRedirect("list");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        userService.updateUser(new User(id, name, age, email, location, password, role));
+        resp.sendRedirect("admin");
     }
 
     @Override

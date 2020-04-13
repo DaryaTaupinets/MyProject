@@ -4,7 +4,6 @@ import model.User;
 import service.UserService;
 import service.UserServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +22,10 @@ public class CreateServlet extends HttpServlet {
         Byte age = Byte.parseByte(req.getParameter("age"));
         String email = req.getParameter("email");
         String location = req.getParameter("location");
-        userService.createUser(new User(name, age, email, location));
-        resp.sendRedirect("list");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        userService.createUser(new User(name, age, email, location, password, role));
+        resp.sendRedirect("admin");
     }
 
     @Override

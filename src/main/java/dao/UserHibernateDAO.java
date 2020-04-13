@@ -34,6 +34,16 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
+    public User getUserByName(String name) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = (User) session.get(User.class, name);
+        transaction.commit();
+        session.close();
+        return user;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

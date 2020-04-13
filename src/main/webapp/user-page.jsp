@@ -9,7 +9,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-    <title>My first CRUD Application</title>
+    <title>User Page</title>
 </head>
 
 <body>
@@ -18,9 +18,21 @@
          style="background-color: dodgerblue">
         <div>
             <h1>My first CRUD Application</h1>
-            <h2><a href="${pageContext.request.contextPath}/list">
-                <button type="button" class="btn btn-secondary">User's list</button>
-            </a></h2>
         </div>
     </nav>
 </header>
+
+<br>
+<h2>Hello, <%=request.getAttribute("userName")%> , it's My first CRUD Application</h2>
+
+<br>
+<div>
+    <a href="${pageContext.request.contextPath}/admin" class="btn btn-primary">Admin Page</a>
+</div>
+
+<br>
+<div>
+    <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">Logout</a>
+</div>
+</body>
+</html>

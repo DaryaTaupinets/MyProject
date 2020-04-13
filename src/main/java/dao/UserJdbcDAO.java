@@ -21,11 +21,12 @@ public class UserJdbcDAO implements UserDAO {
     private boolean deleted;
     private boolean updating;
 
-    private static final String INSERT_USERS_SQL = "INSERT INTO users (name, age, email, location) VALUES (?, ?, ?, ?)";
-    private static final String SELECT_USER_BY_ID = "select id, name, age, email, location from users where id =?";
+    private static final String INSERT_USERS_SQL = "INSERT INTO users (name, age, email, location, password, role) VALUES (?, ?, ?, ?,?,?)";
+    private static final String SELECT_USER_BY_ID = "select id, name, age, email, location, password, role from users where id =?";
+    private static final String SELECT_USER_BY_NAME = "select id, name, age, email, location, password, role from users where name =?";
     private static final String SELECT_ALL_USERS = "select * from users";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?";
-    private static final String UPDATE_USERS_SQL = "update users set name = ?, age = ?, email = ?, location = ? where id = ?";
+    private static final String UPDATE_USERS_SQL = "update users set name = ?, age = ?, email = ?, location = ?, password = ?, role = ? where id = ?";
 
     @Override
     public void createUser(User user) {
@@ -35,6 +36,8 @@ public class UserJdbcDAO implements UserDAO {
             preparedStatement.setByte(2, user.getAge());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getLocation());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setString(6, user.getRole());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.info("SQLException in method createUser(User user)");
@@ -54,7 +57,9 @@ public class UserJdbcDAO implements UserDAO {
                 Byte age = resultSet.getByte("age");
                 String email = resultSet.getString("email");
                 String location = resultSet.getString("location");
-                users.add(new User(id, name, age, email, location));
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                users.add(new User(id, name, age, email, location, password, role));
             }
         } catch (SQLException e) {
             log.info("SQLException in method getAllUsers()");
@@ -75,10 +80,35 @@ public class UserJdbcDAO implements UserDAO {
                 Byte age = resultSet.getByte("age");
                 String email = resultSet.getString("email");
                 String location = resultSet.getString("location");
-                user = new User(id, name, age, email, location);
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                user = new User(id, name, age, email, location, password, role);
             }
         } catch (SQLException e) {
             log.info("SQLException in method getUserById(int id)");
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        log.info(SELECT_USER_BY_NAME);
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_NAME)) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                Byte age = resultSet.getByte("age");
+                String email = resultSet.getString("email");
+                String location = resultSet.getString("location");
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                user = new User(id, name, age, email, location, password, role);
+            }
+        } catch (SQLException e) {
+            log.info("SQLException in method getUserByName(String name)");
         }
         return user;
     }
@@ -93,6 +123,8 @@ public class UserJdbcDAO implements UserDAO {
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getLocation());
             statement.setInt(5, user.getId());
+            statement.setString(6, user.getPassword());
+            statement.setString(7, user.getRole());
 
             updating = statement.executeUpdate() > 0;
         } catch (SQLException e) {
