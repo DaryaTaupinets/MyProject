@@ -1,4 +1,4 @@
-package servlet;
+package servlet.filters;
 
 import model.User;
 import service.UserService;

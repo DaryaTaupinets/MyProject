@@ -1,4 +1,4 @@
-package servlet;
+package servlet.CRUDServlets;
 
 import service.UserService;
 import service.UserServiceImpl;
