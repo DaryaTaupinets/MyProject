@@ -3,7 +3,6 @@ package servlet.filters;
 import model.User;
 import service.UserService;
 import service.UserServiceImpl;
-import util.AuthHelper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,17 +14,19 @@ public class FilterByAdminRights implements Filter {
 
     Logger log = Logger.getLogger(FilterByAdminRights.class.getName());
 
+    private static UserService userService = UserServiceImpl.getInstance();
+
+    private static FilterByLogin filterByLogin = FilterByLogin.getInstance();
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        UserService userService = UserServiceImpl.getInstance();
-        AuthHelper authHelper = AuthHelper.getInstance();
 
-        if (!authHelper.isLogged()) {
+        if (!filterByLogin.isLogged()) {
             servletRequest.getRequestDispatcher("userNotAuth.jsp").forward(servletRequest, servletResponse);
             return;
         }
 
-        String userName = authHelper.getUserName();
+        String userName = filterByLogin.getName();
         User user = null;
 
         try {
@@ -37,7 +38,7 @@ public class FilterByAdminRights implements Filter {
         String role = user.getRole();
 
         if (role.equals("admin")) {
-            authHelper.setLogged(true);
+            filterByLogin.setLogged(true);
             filterChain.doFilter(servletRequest, servletResponse);
         }
 

@@ -1,6 +1,6 @@
 package servlet;
 
-import util.AuthHelper;
+import servlet.filters.FilterByLogin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +13,12 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AuthHelper authHelper = AuthHelper.getInstance();
-        String userName = authHelper.getUserName();
+        FilterByLogin filterByLogin = FilterByLogin.getInstance();
+        String userName = filterByLogin.getName();
 
-        authHelper.setLogged(false);
-        authHelper.setUserName("");
-        authHelper.setUserPassword("");
+        filterByLogin.setLogged(false);
+        filterByLogin.setName("");
+        filterByLogin.setPassword("");
 
         req.setAttribute("name", userName);
         req.getRequestDispatcher("logout.jsp").forward(req, resp);

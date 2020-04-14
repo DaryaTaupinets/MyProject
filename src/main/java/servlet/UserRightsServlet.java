@@ -1,6 +1,6 @@
 package servlet;
 
-import util.AuthHelper;
+import servlet.filters.FilterByLogin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +13,8 @@ import java.io.IOException;
 public class UserRightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AuthHelper authHelper = AuthHelper.getInstance();
-        String userName = authHelper.getUserName();
+        FilterByLogin filterByLogin = FilterByLogin.getInstance();
+        String userName = filterByLogin.getName();
 
         req.setAttribute("name", userName);
         req.getRequestDispatcher("user-page.jsp").forward(req, resp);

@@ -14,10 +14,15 @@ import java.util.List;
 
 @WebServlet("/admin")
 public class AdminRightsServlet extends HttpServlet {
+    private static UserService userService = UserServiceImpl.getInstance();
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.sendRedirect("admin");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService userService = UserServiceImpl.getInstance();
         List<User> userList = userService.getListUser();
         req.setAttribute("userList", userList);
         req.getRequestDispatcher("admin-page.jsp").forward(req, resp);

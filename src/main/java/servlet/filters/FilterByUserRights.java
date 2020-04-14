@@ -1,7 +1,5 @@
 package servlet.filters;
 
-import util.AuthHelper;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -12,9 +10,9 @@ public class FilterByUserRights implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        AuthHelper authHelper = AuthHelper.getInstance();
+        FilterByLogin filterByLogin = FilterByLogin.getInstance();
 
-        if (!authHelper.isLogged()) {
+        if (!filterByLogin.isLogged()) {
             servletRequest.getRequestDispatcher("userNotAuth.jsp").forward(servletRequest, servletResponse);
             return;
         }
