@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -83,9 +84,11 @@ public class FilterByLogin implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpSession session = request.getSession();
 
-        String userName = request.getParameter("name");
-        String userPassword = request.getParameter("password");
+        User userLogin = (User) session.getAttribute("userLogin");
+        String userName = userLogin.getName();
+        String userPassword = userLogin.getPassword();
         setName(userName);
         setPassword(userPassword);
 
