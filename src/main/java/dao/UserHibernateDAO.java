@@ -2,6 +2,7 @@ package dao;
 
 
 import model.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -41,6 +42,24 @@ public class UserHibernateDAO implements UserDAO {
         transaction.commit();
         session.close();
         return user;
+    }
+
+    @Override
+    public User getUserByNameAndPassword(String name, String password) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User where name = :paramName");
+        query.setParameter("paramName", name);
+        List <User> users = query.list();
+        User userLogin = null;
+        for (User user: users){
+            if (user.getName().equals(name)&&user.getPassword().equals(password)){
+                userLogin = user;
+            }
+        }
+        transaction.commit();
+        session.close();
+        return userLogin;
     }
 
     @Override

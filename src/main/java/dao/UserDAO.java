@@ -21,4 +21,6 @@ public interface UserDAO {
 
     //delete
     boolean deleteUserById(Integer id);
+
+    User getUserByNameAndPassword(String name, String password);
 }

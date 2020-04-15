@@ -3,7 +3,7 @@ package servlet;
 import model.User;
 import service.UserService;
 import service.UserServiceImpl;
-import servlet.filters.FilterByLogin;
+import util.AuthHelper;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,32 +18,30 @@ import java.util.logging.Logger;
 public class LoginServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(LoginServlet.class.getName());
-    private static FilterByLogin filterByLogin = FilterByLogin.getInstance();
     private static UserService service = UserServiceImpl.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("index");
         try {
             requestDispatcher.forward(req, resp);
-        }catch (ServletException|IOException e) {
+        } catch (ServletException | IOException e) {
             logger.info("Exception in class LoginServlet in method doGet()");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         User userLogin = null;
 
-        if (filterByLogin.isLogged()){
-            userLogin = service.getUserByName(name);
+        if (AuthHelper.isLogin(name, password)) {
+            userLogin = service.getUserByNameAndPassword(name, password);
         }
 
         req.getSession().setAttribute("userLogin", userLogin);
 
         resp.sendRedirect("admin");
-
     }
 }

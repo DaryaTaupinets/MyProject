@@ -113,6 +113,10 @@ public class UserJdbcDAO implements UserDAO {
         return user;
     }
 
+    @Override
+    public User getUserByNameAndPassword(String name, String password) {
+        return null;
+    }
 
     @Override
     public boolean updateUser(User user) {

@@ -28,18 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void createUser(User user) {
+        userDAO.createUser(user);
+    }
+
+    @Override
     public List<User> getListUser() {
         return userDAO.getAllUsers();
-    }
-
-    @Override
-    public void updateUser(User user) {
-        userDAO.updateUser(user);
-    }
-
-    @Override
-    public void deleteUser(Integer id) {
-        userDAO.deleteUserById(id);
     }
 
     @Override
@@ -53,7 +48,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
-        userDAO.createUser(user);
+    public void updateUser(User user) {
+        userDAO.updateUser(user);
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        userDAO.deleteUserById(id);
+    }
+
+    @Override
+    public User getUserByNameAndPassword(String name, String password) {
+        User userLogin = userDAO.getUserByNameAndPassword(name, password);
+        return userLogin;
     }
 }

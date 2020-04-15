@@ -1,5 +1,6 @@
 package servlet;
 
+import model.User;
 import servlet.filters.FilterByLogin;
 
 import javax.servlet.ServletException;
@@ -13,13 +14,8 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        FilterByLogin filterByLogin = FilterByLogin.getInstance();
-        String userName = filterByLogin.getName();
-
-        filterByLogin.setLogged(false);
-        filterByLogin.setName("");
-        filterByLogin.setPassword("");
-
+        User user = (User) req.getSession().getAttribute("userLogin");
+        String userName = user.getName();
         req.setAttribute("name", userName);
         req.getRequestDispatcher("logout.jsp").forward(req, resp);
     }
