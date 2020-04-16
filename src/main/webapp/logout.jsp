@@ -22,7 +22,7 @@
     </nav>
 </header>
 
-<h2>See you Later, <%=request.getAttribute("userName")%> !</h2>
+<h2>See you Later, <%=request.getAttribute("name")%> !</h2>
 <br>
 <p>
 <h2><a href="${pageContext.request.contextPath}/">

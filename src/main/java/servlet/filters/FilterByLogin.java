@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebFilter(filterName = "FilterByLogin", urlPatterns = "/login/*")
+@WebFilter(filterName = "FilterByLogin", urlPatterns = {"/admin/*","/create", "/delete", "/update"})
 public class FilterByLogin implements Filter {
 
     Logger log = Logger.getLogger(FilterByLogin.class.getName());

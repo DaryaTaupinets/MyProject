@@ -24,8 +24,7 @@
 
 <br>
 
-<jsp:useBean id="user" scope="request" type="model.User"/>
-<h2>Hello, <c:out value="${user.name}"/> , it's My first CRUD Application</h2>
+<h2>Hello, <%=request.getAttribute("name")%>, it's My first CRUD Application</h2>
 
 <br>
 <div>

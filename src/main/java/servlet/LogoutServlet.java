@@ -1,7 +1,6 @@
 package servlet;
 
 import model.User;
-import servlet.filters.FilterByLogin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
