@@ -18,18 +18,14 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public void createUser(User user) {
         Session session = DBHelper.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
         session.save(user);
-        transaction.commit();
         session.close();
     }
 
     @Override
     public User getUserById(Integer id) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         User user = (User) session.get(User.class, id);
-        transaction.commit();
         session.close();
         return user;
     }
@@ -37,9 +33,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public User getUserByName(String name) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         User user = (User) session.get(User.class, name);
-        transaction.commit();
         session.close();
         return user;
     }
@@ -65,9 +59,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("from User").list();
-        transaction.commit();
         session.close();
         return users;
     }
@@ -75,9 +67,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public boolean updateUser(User user) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         session.update(user);
-        transaction.commit();
         session.close();
         return false;
     }

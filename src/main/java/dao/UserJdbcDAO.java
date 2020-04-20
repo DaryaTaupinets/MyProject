@@ -39,6 +39,7 @@ public class UserJdbcDAO implements UserDAO {
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setString(6, user.getRole());
             preparedStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
             log.info("SQLException in method createUser(User user)");
         }
@@ -60,6 +61,7 @@ public class UserJdbcDAO implements UserDAO {
                 String password = resultSet.getString("password");
                 String role = resultSet.getString("role");
                 users.add(new User(id, name, age, email, location, password, role));
+                connection.commit();
             }
         } catch (SQLException e) {
             log.info("SQLException in method getAllUsers()");
@@ -83,6 +85,7 @@ public class UserJdbcDAO implements UserDAO {
                 String password = resultSet.getString("password");
                 String role = resultSet.getString("role");
                 user = new User(id, name, age, email, location, password, role);
+                connection.commit();
             }
         } catch (SQLException e) {
             log.info("SQLException in method getUserById(int id)");
@@ -106,6 +109,7 @@ public class UserJdbcDAO implements UserDAO {
                 String password = resultSet.getString("password");
                 String role = resultSet.getString("role");
                 user = new User(id, name, age, email, location, password, role);
+                connection.commit();
             }
         } catch (SQLException e) {
             log.info("SQLException in method getUserByName(String name)");
@@ -131,6 +135,7 @@ public class UserJdbcDAO implements UserDAO {
             statement.setString(7, user.getRole());
 
             updating = statement.executeUpdate() > 0;
+            connection.commit();
         } catch (SQLException e) {
             log.info("SQLException in method updateUser(User user)");
         }

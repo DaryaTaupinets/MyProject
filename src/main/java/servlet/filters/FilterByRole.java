@@ -10,10 +10,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebFilter(filterName = "FilterByLogin", urlPatterns = {"/admin/*","/create", "/delete", "/update"})
-public class FilterByLogin implements Filter {
+@WebFilter(filterName = "FilterByRole", urlPatterns = {"/admin/*","/create", "/delete", "/update"})
+public class FilterByRole implements Filter {
 
-    Logger log = Logger.getLogger(FilterByLogin.class.getName());
+    Logger log = Logger.getLogger(FilterByRole.class.getName());
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
