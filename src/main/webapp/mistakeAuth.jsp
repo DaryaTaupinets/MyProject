@@ -22,7 +22,8 @@
     </nav>
 </header>
 
-<h2>Invalid username or password, try again. Enter right username and password.</h2>
+<br>
+<h2> <%=request.getAttribute("name")%>, you haven't admin or user rights! Log in and try again</h2>
 
 <br>
 <p>

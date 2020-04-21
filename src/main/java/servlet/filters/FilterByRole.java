@@ -30,8 +30,8 @@ public class FilterByRole implements Filter {
         } else if (userRole.equals("user")) {
             request.setAttribute("userLogin", userLogin);
             response.sendRedirect("user");
-        } else if (userRole == null) {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else if (userRole.isEmpty()) {
+            response.sendRedirect("mistake");
         }
     }
 
