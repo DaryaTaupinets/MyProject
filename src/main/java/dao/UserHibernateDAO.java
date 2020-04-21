@@ -2,86 +2,130 @@ package dao;
 
 
 import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import util.DBHelper;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class UserHibernateDAO implements UserDAO {
 
     private SessionFactory sessionFactory = DBHelper.getSessionFactory();
+    private Session session;
+    private Transaction transaction = null;
+
+    Logger logger = Logger.getLogger(UserHibernateDAO.class.getName());
 
     @Override
     public void createUser(User user) {
-        Session session = DBHelper.getSessionFactory().openSession();
-        session.save(user);
-        session.close();
+        session = DBHelper.getSessionFactory().openSession();
+        try {
+            session.save(user);
+        } catch (HibernateException e) {
+            logger.info("HibernateException in class UserHibernateDAO in method createUser()");
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public User getUserById(Integer id) {
-        Session session = sessionFactory.openSession();
-        User user = (User) session.get(User.class, id);
-        session.close();
+        session = sessionFactory.openSession();
+        User user = null;
+        try {
+            user = (User) session.get(User.class, id);
+        } catch (HibernateException e) {
+            logger.info("HibernateException in class UserHibernateDAO in method getUserById()");
+        } finally {
+            session.close();
+        }
         return user;
     }
 
     @Override
     public User getUserByName(String name) {
-        Session session = sessionFactory.openSession();
-        User user = (User) session.get(User.class, name);
-        session.close();
+        session = sessionFactory.openSession();
+        User user = null;
+        try {
+            user = (User) session.get(User.class, name);
+        } catch (HibernateException e) {
+            logger.info("HibernateException in class UserHibernateDAO in method getUserByName()");
+        } finally {
+            session.close();
+        }
         return user;
     }
 
     @Override
     public User getUserByNameAndPassword(String name, String password) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from User where name = :paramName");
-        query.setParameter("paramName", name);
-        List <User> users = query.list();
+        session = sessionFactory.openSession();
         User userLogin = null;
-        for (User user: users){
-            if (user.getName().equals(name)&&user.getPassword().equals(password)){
-                userLogin = user;
+        try {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("from User where name = :paramName");
+            query.setParameter("paramName", name);
+            List<User> users = query.list();
+            for (User user : users) {
+                if (user.getName().equals(name) && user.getPassword().equals(password)) {
+                    userLogin = user;
+                }
             }
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            logger.info("HibernateException in class UserHibernateDAO in method getUserByNameAndPassword()");
+        } finally {
+            session.close();
         }
-        transaction.commit();
-        session.close();
         return userLogin;
     }
 
     @Override
     public List<User> getAllUsers() {
-        Session session = sessionFactory.openSession();
-        List<User> users = session.createQuery("from User").list();
-        session.close();
+        session = sessionFactory.openSession();
+        List<User> users = null;
+        try {
+            users = session.createQuery("from User").list();
+        } catch (HibernateException e) {
+            logger.info("HibernateException in class UserHibernateDAO in method getAllUsers()");
+        } finally {
+            session.close();
+        }
         return users;
     }
 
     @Override
     public boolean updateUser(User user) {
-        Session session = sessionFactory.openSession();
-        session.update(user);
-        session.close();
+        session = sessionFactory.openSession();
+        try {
+            session.update(user);
+        } catch (HibernateException e) {
+            logger.info("HibernateException in class UserHibernateDAO in method updateUser()");
+        } finally {
+            session.close();
+        }
         return false;
     }
 
     @Override
     public boolean deleteUserById(Integer id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        User user = (User) session.get(User.class, id);
-        if (user != null) {
-            session.delete(user);
+        session = sessionFactory.openSession();
+        User user;
+        try {
+            transaction = session.beginTransaction();
+            user = (User) session.get(User.class, id);
+            if (user != null) {
+                session.delete(user);
+            }
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            logger.info("HibernateException in class UserHibernateDAO in method deleteUserById()");
+        } finally {
+            session.close();
         }
-        transaction.commit();
-        session.close();
         return false;
     }
 }
+
