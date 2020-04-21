@@ -35,12 +35,13 @@ public class UserHibernateDAO implements UserDAO {
         User user = null;
         try {
             user = (User) session.get(User.class, id);
+            return user;
         } catch (HibernateException e) {
             logger.info("HibernateException in class UserHibernateDAO in method getUserById()");
+            return null;
         } finally {
             session.close();
         }
-        return user;
     }
 
     @Override
@@ -49,12 +50,13 @@ public class UserHibernateDAO implements UserDAO {
         User user = null;
         try {
             user = (User) session.get(User.class, name);
+            return user;
         } catch (HibernateException e) {
             logger.info("HibernateException in class UserHibernateDAO in method getUserByName()");
+            return null;
         } finally {
             session.close();
         }
-        return user;
     }
 
     @Override
@@ -72,13 +74,14 @@ public class UserHibernateDAO implements UserDAO {
                 }
             }
             transaction.commit();
+            return userLogin;
         } catch (HibernateException e) {
             transaction.rollback();
             logger.info("HibernateException in class UserHibernateDAO in method getUserByNameAndPassword()");
+            return null;
         } finally {
             session.close();
         }
-        return userLogin;
     }
 
     @Override
@@ -87,12 +90,13 @@ public class UserHibernateDAO implements UserDAO {
         List<User> users = null;
         try {
             users = session.createQuery("from User").list();
+            return users;
         } catch (HibernateException e) {
             logger.info("HibernateException in class UserHibernateDAO in method getAllUsers()");
+            return null;
         } finally {
             session.close();
         }
-        return users;
     }
 
     @Override
@@ -100,12 +104,13 @@ public class UserHibernateDAO implements UserDAO {
         session = sessionFactory.openSession();
         try {
             session.update(user);
+            return false;
         } catch (HibernateException e) {
             logger.info("HibernateException in class UserHibernateDAO in method updateUser()");
+            return true;
         } finally {
             session.close();
         }
-        return false;
     }
 
     @Override
@@ -119,13 +124,14 @@ public class UserHibernateDAO implements UserDAO {
                 session.delete(user);
             }
             transaction.commit();
+            return false;
         } catch (HibernateException e) {
             transaction.rollback();
             logger.info("HibernateException in class UserHibernateDAO in method deleteUserById()");
+            return true;
         } finally {
             session.close();
         }
-        return false;
     }
 }
 
