@@ -21,8 +21,11 @@ public class UserHibernateDAO implements UserDAO {
     public void createUser(User user) {
         session = DBHelper.getSessionFactory().openSession();
         try {
+            transaction = session.beginTransaction();
             session.save(user);
+            transaction.commit();
         } catch (HibernateException e) {
+            transaction.rollback();
             logger.info("HibernateException in class UserHibernateDAO in method createUser()");
         } finally {
             session.close();
@@ -103,9 +106,12 @@ public class UserHibernateDAO implements UserDAO {
     public boolean updateUser(User user) {
         session = sessionFactory.openSession();
         try {
+            transaction = session.beginTransaction();
             session.update(user);
+            transaction.commit();
             return false;
         } catch (HibernateException e) {
+            transaction.rollback();
             logger.info("HibernateException in class UserHibernateDAO in method updateUser()");
             return true;
         } finally {
