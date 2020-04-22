@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delete")
+@WebServlet("/admin/delete")
 public class DeleteServlet extends HttpServlet {
 
     private static UserService userService = UserServiceImpl.getInstance();
@@ -23,6 +23,6 @@ public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         userService.deleteUser(id);
-        resp.sendRedirect("admin");
+        resp.sendRedirect(req.getContextPath()+"/admin");
     }
 }

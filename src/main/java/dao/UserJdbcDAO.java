@@ -22,6 +22,7 @@ public class UserJdbcDAO implements UserDAO {
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, age, email, location, password, role) VALUES (?, ?, ?, ?,?,?)";
     private static final String SELECT_USER_BY_ID = "select id, name, age, email, location, password, role from users where id =?";
     private static final String SELECT_USER_BY_NAME = "select id, name, age, email, location, password, role from users where name =?";
+    private static final String SELECT_USER_BY_NAME_AND_PASSWORD = "select * from users where name = ? and password = ?";
     private static final String SELECT_ALL_USERS = "select * from users";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?";
     private static final String UPDATE_USERS_SQL = "update users set name = ?, age = ?, email = ?, location = ?, password = ?, role = ? where id = ?";
@@ -124,7 +125,24 @@ public class UserJdbcDAO implements UserDAO {
 
     @Override
     public User getUserByNameAndPassword(String name, String password) {
-        return null;
+        log.info(SELECT_USER_BY_NAME_AND_PASSWORD);
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_NAME_AND_PASSWORD)){
+         preparedStatement.setString(1, name);
+         preparedStatement.setString(2, password);
+         ResultSet resultSet = preparedStatement.executeQuery();
+         while (resultSet.next()) {
+             Integer id = resultSet.getInt("id");
+             Byte age = resultSet.getByte("age");
+             String email = resultSet.getString("email");
+             String location = resultSet.getString("location");
+             String role = resultSet.getString("role");
+             user = new User(id, name, age, email, location, password, role);
+         }
+        }catch (SQLException e) {
+            log.info("SQLException in method getUserByNameAndPassword(String name, String password)");
+        }
+        return user;
     }
 
     @Override

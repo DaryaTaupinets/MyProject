@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/update")
+@WebServlet("/admin/update")
 public class UpdateServlet extends HttpServlet {
 
     private static UserService userService = UserServiceImpl.getInstance();
@@ -34,7 +34,7 @@ public class UpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         User existingUser = userService.getUserById(id);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/user-form.jsp");
         req.setAttribute("user", existingUser);
         dispatcher.forward(req, resp);
     }

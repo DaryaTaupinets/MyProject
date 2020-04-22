@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebFilter(filterName = "FilterByRole", urlPatterns = {"/admin/*","/create", "/delete", "/update"})
+@WebFilter(filterName = "FilterByRole", urlPatterns = "/admin/*")
 public class FilterByRole implements Filter {
 
     Logger log = Logger.getLogger(FilterByRole.class.getName());
