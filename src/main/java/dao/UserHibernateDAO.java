@@ -19,8 +19,8 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void createUser(User user) {
-        session = DBHelper.getSessionFactory().openSession();
         try {
+            session = DBHelper.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -34,9 +34,9 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserById(Integer id) {
-        session = sessionFactory.openSession();
         User user = null;
         try {
+            session = sessionFactory.openSession();
             user = (User) session.get(User.class, id);
             return user;
         } catch (HibernateException e) {
@@ -49,9 +49,9 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserByName(String name) {
-        session = sessionFactory.openSession();
         User user = null;
         try {
+            session = sessionFactory.openSession();
             user = (User) session.get(User.class, name);
             return user;
         } catch (HibernateException e) {
@@ -64,9 +64,9 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserByNameAndPassword(String name, String password) {
-        session = sessionFactory.openSession();
         User userLogin = null;
         try {
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             Query query = session.createQuery("from User where name = :paramName");
             query.setParameter("paramName", name);
@@ -89,9 +89,9 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public List<User> getAllUsers() {
-        session = sessionFactory.openSession();
         List<User> users = null;
         try {
+            session = sessionFactory.openSession();
             users = session.createQuery("from User").list();
             return users;
         } catch (HibernateException e) {
@@ -104,8 +104,8 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public boolean updateUser(User user) {
-        session = sessionFactory.openSession();
         try {
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();

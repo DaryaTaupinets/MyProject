@@ -30,10 +30,10 @@
     <div class="card">
         <div class="card-body">
             <c:if test="${user != null}">
-            <form action="admin/update" method="post">
+            <form action="/admin/update" method="post">
                 </c:if>
                 <c:if test="${user == null}">
-                <form action="admin/create" method="post">
+                <form action="/admin/create" method="post">
                     </c:if>
 
                     <caption>

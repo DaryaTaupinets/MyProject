@@ -27,7 +27,7 @@ public class UpdateServlet extends HttpServlet {
         String password = req.getParameter("password");
         String role = req.getParameter("role");
         userService.updateUser(new User(id, name, age, email, location, password, role));
-        resp.sendRedirect("admin");
+        resp.sendRedirect("/admin");
     }
 
     @Override

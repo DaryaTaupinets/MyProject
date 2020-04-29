@@ -44,6 +44,7 @@ public class UserJdbcDAO implements UserDAO {
             preparedStatement.setString(6, user.getRole());
             preparedStatement.executeUpdate();
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             log.info("SQLException in method createUser(User user)");
             try {
@@ -163,6 +164,7 @@ public class UserJdbcDAO implements UserDAO {
             statement.setString(7, user.getRole());
             updating = statement.executeUpdate() > 0;
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             log.info("SQLException in method updateUser(User user)");
             try {
@@ -186,6 +188,7 @@ public class UserJdbcDAO implements UserDAO {
             statement.setInt(1, id);
             deleted = statement.executeUpdate() > 0;
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             log.info("SQLException in method deleteUserById(int id)");
             try {

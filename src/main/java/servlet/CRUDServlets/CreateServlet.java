@@ -25,7 +25,7 @@ public class CreateServlet extends HttpServlet {
         String password = req.getParameter("password");
         String role = req.getParameter("role");
         userService.createUser(new User(name, age, email, location, password, role));
-        resp.sendRedirect("admin");
+        resp.sendRedirect("/admin");
     }
 
     @Override
