@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @WebServlet("/user")
 public class UserRightsServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("userLogin");

@@ -17,11 +17,6 @@ public class AdminRightsServlet extends HttpServlet {
     private static UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("admin");
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> userList = userService.getListUser();
         req.setAttribute("userList", userList);
