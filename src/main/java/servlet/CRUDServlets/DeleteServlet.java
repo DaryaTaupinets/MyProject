@@ -15,7 +15,7 @@ public class DeleteServlet extends HttpServlet {
     private static UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         userService.deleteUser(id);
         resp.sendRedirect("/admin");

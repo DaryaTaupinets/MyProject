@@ -64,9 +64,9 @@
                     <td><a href="admin/update?id=<c:out value='${user.id}' />">
                         <button type="button" class="btn btn-primary">Edit</button>
                     </a>
-                        &nbsp;&nbsp;&nbsp;&nbsp; <a href="admin/delete?id=<c:out value='${user.id}' />">
-                            <button type="button" class="btn btn-primary">Delete</button>
-                        </a></td>
+                        <form  action="/admin/delete" method="post">
+                            <button name="id" value="<c:out value='${user.id}' />" class="btn btn-primary">Delete</button>
+                        </form></td>
                 </tr>
             </c:forEach>
 
